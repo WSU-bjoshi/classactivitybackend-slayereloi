@@ -1,0 +1,37 @@
+
+
+import ToDoModel from "../models/todo.models.js"
+
+function getTodosService(){
+    return ToDoModel.getAllTodos();
+}
+
+function createTodoService(task){
+    if(!task || typeof task !=="string" || task.trim()===""){
+        // return res.status(400).json({error:"task is required. You should provide non-empty string"});
+        throw new error("Invalid task")
+    }
+    return ToDoModel.createTodo(task);
+}
+
+function toggleTodoByIdService(id){
+    // const todo = todos.find(t => t.id === id);
+    // if(!todo){
+    //     return null;
+    // }
+    return ToDoModel.toggleTodoById(id);
+}
+
+function deleteTodoByIdService(id){
+    return ToDoModel.deleteTodoById(id);
+}
+
+
+export {
+    getTodosService,
+    createTodoService,
+    toggleTodoByIdService,
+    deleteTodoByIdService
+
+};
+
