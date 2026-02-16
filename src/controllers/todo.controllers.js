@@ -1,15 +1,17 @@
+// import { getTodosService, createTodoService,toggleTodoByIdService,deleteTodoByIdService } from "../services/todo.service.js";
+
 import {getTodosService, createTodoService, toggleTodoByIdService, deleteTodoByIdService} from "../services/todo.service.js";
 
-export function listTodos(req, res){
-    const todos = getTodosService();
+export async function listTodos(req, res){
+    const todos = await getTodosService();
     res.json({count: todos.length, todos});
 }
 
 
-export function createTodos(req, res){
+export async function createTodos(req, res){
     try{
         const {task} = req.body;
-        const todo = createTodoService(task);
+        const todo = await createTodoService(task);
         res.status(201).json({message:"Created", todo});
     } catch(err){
         res.status(400).json({error:err.message});
@@ -38,26 +40,3 @@ export function removeTodo(req, res){
 
     res.json({message:"Deleted Successfully"})
 }
-//experiment
-
-import { getTodoById } from "../services/service.js";
-
-export const getElementById = (req, res) => {
-  const id = Number(req.params.id);
-
-  if (isNaN(id)) {
-    return res.status(400).json({ message: "Invalid ID" });
-  }
-
-  const todo = getTodoById(id);
-
-  if (!todo) {
-    return res.status(404).json({ message: "Todo not found" });
-  }
-
-  res.status(200).json({
-    id: todo.id,
-    task: todo.task,
-    status: todo.done
-  });
-};
