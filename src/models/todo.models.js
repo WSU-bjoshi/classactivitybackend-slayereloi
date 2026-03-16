@@ -1,11 +1,13 @@
 import pool from "../db/connection.js";
 
-export async function getAllTodos(){
-    const [rows] = await pool.query("SELECT * FROM todos;")
-    console.log(rows);
-    return rows;
+import Todo from "./todo.js"
 
-}
+// export async function getAllUserTodos(userId){
+//     // const [rows] = await pool.query("SELECT * FROM todos;")
+//     // console.log(rows);
+//     // return rows;
+//     return await Todo.findAll({ where: {userId}, order: [["id", "ASC"]]});
+// }
 
 let nextId = 3;
 
@@ -18,7 +20,7 @@ let todos =[
 //     return todos;
 // }
 
-export async function createTodo(task){
+export async function createUserTodo(userId, task){
     //   if(!task || typeof task !=="string" || task.trim()===""){
     //     // return res.status(400).json({error:"task is required. You should provide non-empty string"});
     //     throw new error("Invalid task")
@@ -28,10 +30,13 @@ export async function createTodo(task){
     // todos.push(todo);
 
     // return todo;
-    const [result] = await pool.query(
-        "INSERT INTO todos(task) VALUES (?)", [task]
-    );
-    return {id: result.insertId, task, completed:false};
+    // const [result] = await pool.query(
+    //     "INSERT INTO todos(task) VALUES (?)", [task]
+    // );
+    // return {id: result.insertId, task, completed:false};
+    console.log("THe user id is", userId);
+
+    return await Todo.create({user_id: userId, tasks: task});
 
 }
 
