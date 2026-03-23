@@ -1,6 +1,6 @@
 import pool from "../db/connection.js";
 
-import Todo from "./todo.js"
+import Todo from "./Todo.js"
 
 // export async function getAllUserTodos(userId){
 //     // const [rows] = await pool.query("SELECT * FROM todos;")
